@@ -1,0 +1,19 @@
+[project]
+name = "migrate-schedules"
+version = "0.1.0"
+description = "Copy Temporal schedules from a local server to Temporal Cloud"
+requires-python = ">=3.10"
+dependencies = ["temporalio>=1.31.0,<2", "python-dotenv>=1.0.0,<2"]
+
+[project.scripts]
+migrate-schedules = "migrate_schedules:main_sync"
+migrate_schedules = "migrate_schedules:main_sync"
+delete-cloud-schedules = "delete_cloud_schedules:main_sync"
+delete_cloud_schedules = "delete_cloud_schedules:main_sync"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["migrate_schedules.py", "delete_cloud_schedules.py"]
