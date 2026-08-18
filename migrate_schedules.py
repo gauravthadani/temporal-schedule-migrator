@@ -115,7 +115,14 @@ async def main() -> None:
                         print(f"  payload[{i}] encoding={encoding} data={data}")
                 continue
 
-            await cloud.create_schedule(sid, desc.schedule)
+            memo = await desc.memo() or None
+            sas = desc.typed_search_attributes if len(desc.typed_search_attributes) else None
+            await cloud.create_schedule(
+                sid,
+                desc.schedule,
+                memo=memo,
+                search_attributes=sas,
+            )
             print("  created")
         except Exception as e:  # noqa: BLE001
             print(f"  FAILED: {e}", file=sys.stderr)
